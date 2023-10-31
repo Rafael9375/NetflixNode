@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  token      String   @unique
+
+  @@unique([id, token])
+}
+
+model User {
+  email         String?   @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  id            Int    @id @default(autoincrement())
+  favoriteIds String[]
+}
+
+model TestTable {
+  id   Int     @id @default(autoincrement())
+  desc String?
+  selectTestTable SelectTestTable[]
+}
+
+model SelectTestTable {
+  id Int @id @default(autoincrement())
+  testId Int
+  testTable TestTable @relation(fields: [testId], references: [id])
+}
+
+model Movie {
+  id   Int     @id @default(autoincrement())
+  title String
+  description String
+  videoUrl String
+  thumbnailUrl String
+  genre String
+  duration String
+}
