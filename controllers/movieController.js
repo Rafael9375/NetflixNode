@@ -134,9 +134,9 @@ const getFavorites = async (req, res) => {
   
 }
 
-const addOne = async (req, res) => {
+const addOne = (req, res) => {
   console.log(req.body)
-  const movies = await prisma.movies.create({data: req.body});
+  const movies = prisma.movies.create({data: req.body});
   res.sendStatus(200)
   disconnect();
 }
